@@ -8,7 +8,11 @@ def main():
     server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEPORT,1)
     server_socket.bind(('',2222))
     server_socket.listen(223)
-    input()
+    
+    client_socket, client_address = server_socket.accept()
+    print(f"got connection from {client_address[0]}:{client_address[1]}")
+    client_socket.send(b"hi\n")
+    print(client_socket.recv(256).decode())
 
 if __name__=="__main__":
     main()
